@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Composant/bouton.dart';
 import 'package:flutter_application_1/Composant/navabar.dart';
-import 'package:flutter_application_1/pages/Home/Annonce.dart';
-import 'package:flutter_application_1/pages/Home/detail_livre.dart';
 
-void main() {
-  runApp(detail_livre());
-}
-
-class MyApp extends StatelessWidget {
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
