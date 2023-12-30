@@ -29,7 +29,7 @@ class RootPage extends StatelessWidget {
               Expanded(
                   flex: 12,
                   child: Container(
-                    color: Colors.amber,
+                    //color: Colors.amber,
                     child: pages[ctr.item],
                   )),
               Expanded(
