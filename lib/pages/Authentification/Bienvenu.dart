@@ -5,71 +5,76 @@ class Bienvenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          body: ListView(
+    return Scaffold(
+      body: ListView(
         children: [
           Column(
             children: [
-              // Expanded(
-              // child:
-              Stack(
-                children: [
-                  Image.asset(
-                    'assets/images/bienvenu.png',
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                    //           color: Color.fromRGBO(255, 255, 255, 0.5),
-                  ),
-                  Column(
+              Container(
+                child: Container(
+                  width: double.infinity,
+                  height: 600,
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        height: 400,
+                      Image.asset(
+                        'assets/images/bienvenu.png',
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                        color: Colors.black.withOpacity(0.4),
+                        colorBlendMode: BlendMode.darken,
                       ),
-                      Column(
-                        children: [
-                          Text("sdf  sd"),
-                          Container(
-                            width: 757,
-                            height: 566,
-                            constraints: BoxConstraints.expand(),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(757),
-                                bottomRight: Radius.circular(757),
-                              ),
-                              gradient: LinearGradient(
-                                colors: [Color(0xFF27A9E1), Color(0xFF2F358A)],
-                                stops: [0.1412, 0.6613],
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Recherche facile",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 24,
+                                color: Colors.white,
                               ),
                             ),
-                            child: Center(
+                            SizedBox(height: 8.0),
+                            Container(
+                              width: 320,
                               child: Text(
-                                'Votre contenu ici',
+                                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ",
                                 style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 12,
                                   color: Colors.white,
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
-                            ),
-                          )
-                        ],
-                      )
+                            )
+                          ],
+                        ),
+                      ),
+                      // Positioned(
+                      //   bottom: 20.0,
+                      //   left: 0,
+                      //   right: 0,
+                      //   child: Container(
+                      //     height: 150,
+                      //     color: Colors.black12,
+                      //     child: Text('data'),
+                      //   ),
+                      // ),
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
-              // ),
-
-              // Text('data')
             ],
           ),
+          Container(
+            height: 10,
+            color: Colors.black,
+            child: Text('data'),
+          ),
         ],
-      )),
+      ),
     );
   }
 }

@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 
-Widget buildCustomTextField({String labelText = 'Nom', String hintText = ''}) {
+Widget buildCustomTextField({
+  String labelText = 'Nom',
+  String hintText = '',
+  TextEditingController? controller,
+  IconData? iconData, // Icône facultative
+}) {
   return Column(
     children: [
       Row(
         children: [
+          if (iconData != null) // Vérifie si une icône est spécifiée
+            Padding(
+              padding: EdgeInsets.only(left: 10, top: 20, bottom: 10),
+              child: Icon(iconData),
+            ),
           Padding(
             padding: EdgeInsets.only(left: 10, top: 20, bottom: 10),
             child: Text(labelText),
@@ -16,6 +26,7 @@ Widget buildCustomTextField({String labelText = 'Nom', String hintText = ''}) {
         ],
       ),
       TextField(
+        controller: controller,
         style: TextStyle(), // Couleur du texte
         decoration: InputDecoration(
           labelText: hintText,

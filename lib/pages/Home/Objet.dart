@@ -4,8 +4,8 @@ import 'package:flutter_application_1/Composant/bouton.dart';
 import 'package:flutter_application_1/Composant/navabar.dart';
 import 'package:flutter_application_1/pages/Home/home.dart';
 
-class Annonce extends StatelessWidget {
-  const Annonce({super.key});
+class Objet_Creation extends StatelessWidget {
+  const Objet_Creation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +28,9 @@ class Annonce extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 40, left: 10),
-                    child: Container(
-                      width: 150,
-                      child: Text(
-                        'Ajoutez une annonce',
-                        style: TextStyle(fontSize: 24),
-                      ),
+                    child: Text(
+                      'Ajoutez un objet',
+                      style: TextStyle(fontSize: 24),
                     ),
                   ),
                   SizedBox(
@@ -44,14 +41,55 @@ class Annonce extends StatelessWidget {
                   buildCustomTextField(
                     labelText: 'Nom',
                   ),
-                  buildCustomTextField(
-                    labelText: 'Localisation',
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 10, top: 20, bottom: 10),
+                        child: Text('Photo'),
+                      ),
+                      Text(
+                        " *",
+                        style: TextStyle(color: Color(0xFFFD6847)),
+                      ),
+                    ],
                   ),
-                  buildCustomTextField(
-                    labelText: 'Date',
-                  ),
-                  buildCustomTextField(
-                    labelText: 'Heure',
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      fixedSize: MaterialStateProperty.all<Size>(
+                        Size(330,
+                            44), // Définissez la largeur et la hauteur du bouton
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Color(
+                          0xFF2982C4)) // Couleur orange si isFilled est true
+                      , // Couleur blanche sinon
+                      // side: MaterialStateProperty.all<BorderSide>(
+                      //   BorderSide(
+                      //     color: Color(0xFFFD6847), // Couleur de la bordure
+                      //     width: 1.0, // Largeur de la bordure
+                      //   ),
+                      // ),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Importer',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors
+                                .white, // Couleur blanche si isFilled est true, sinon couleur orange
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Spacer(), // Ajoutez cet espaceur pour pousser l'icône à droite
+                        Icon(Icons.file_upload_outlined,
+                            size: 20, color: Colors.white
+                            // Couleur blanche si isFilled est true, sinon couleur orange
+                            ),
+                      ],
+                    ),
                   ),
                   buildCustomTextField_Description(
                     labelText: 'Description',

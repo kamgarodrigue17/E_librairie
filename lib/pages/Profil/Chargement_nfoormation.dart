@@ -2,66 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Composant/bouton.dart';
 import 'package:flutter_application_1/Composant/navabar.dart';
 import 'package:flutter_application_1/main.dart';
+import 'package:flutter_application_1/pages/Home/Annonce.dart';
 
 class Chargement_Information extends StatelessWidget {
   const Chargement_Information({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: MyAppBar(
-          //     title: "Mon Titre",
-          leadingIconData: Icons.chevron_left,
-          onLeadingPressed: () {
-            // Action à effectuer lorsque l'utilisateur clique sur le bouton de gauche
-            print("Bouton de gauche cliqué !");
-          },
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-              left: 30, right: 30), // Ajustez le padding comme nécessaire
-          child: ListView(
-            children: [
-              Column(children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  children: [
-                    Container(
-                        width: 290,
-                        height: 83,
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          "Modifications de vos informations",
-                          style: TextStyle(fontSize: 24),
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "),
-                buildCustomTextField(
-                    labelText: 'Prénom', hintText: 'Koffi Gérard'),
-                buildCustomTextField(
-                    labelText: 'Adresse mail', hintText: 'test@gmail.com'),
-                buildCustomTextField(
-                    labelText: 'Date de naissance', hintText: '12/12/2000'),
-                SizedBox(
-                  height: 30,
-                ),
-                Bouton(
-                  texte: 'Enregistrer',
-                  onPressed: () {
-                    // Logique à exécuter lorsqu'on appuie sur le bouton
-                  },
-                ),
-              ]),
-            ],
-          ),
+    return Scaffold(
+      appBar: MyAppBar(
+        //     title: "Mon Titre",
+        leadingIconData: Icons.chevron_left,
+        onLeadingPressed: () {
+          Navigator.of(context).pop();
+          // Action à effectuer lorsque l'utilisateur clique sur le bouton de gauche
+          print("Bouton de gauche cliqué !");
+        },
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+            left: 30, right: 30), // Ajustez le padding comme nécessaire
+        child: ListView(
+          children: [
+            Column(children: [
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                children: [
+                  Container(
+                      width: 290,
+                      height: 83,
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        "Modifications de vos informations",
+                        style: TextStyle(fontSize: 24),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "),
+              buildCustomTextField(
+                  labelText: 'Prénom', hintText: 'Koffi Gérard'),
+              buildCustomTextField(
+                  labelText: 'Adresse mail', hintText: 'test@gmail.com'),
+              buildCustomTextField(
+                  labelText: 'Date de naissance', hintText: '12/12/2000'),
+              SizedBox(
+                height: 30,
+              ),
+              Bouton(
+                texte: 'Enregistrer',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Annonce()),
+                  );
+                },
+              ),
+            ]),
+          ],
         ),
       ),
     );

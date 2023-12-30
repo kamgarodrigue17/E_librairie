@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Composant/Input.dart';
+import 'package:flutter_application_1/Composant/pied_De_page.dart';
+import 'package:flutter_application_1/pages/Authentification/Congratulation.dart';
+import 'package:flutter_application_1/pages/Authentification/MotPasseOublier.dart';
 
 class Connexion extends StatelessWidget {
-  const Connexion({Key? key}) : super(key: key);
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          body: ListView(
+    return Scaffold(
+      body: ListView(
         children: [
           Column(
             children: [
-              // Expanded(
-              // child:
               Stack(
                 children: [
                   Image.asset(
@@ -33,10 +35,7 @@ class Connexion extends StatelessWidget {
                   ),
                 ],
               ),
-              // ),
-              SizedBox(
-                height: 25,
-              ),
+              SizedBox(height: 25),
               Text(
                 "CONNEXION",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
@@ -47,74 +46,34 @@ class Connexion extends StatelessWidget {
               ),
               SizedBox(height: 33),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 5, bottom: 5.0, right: 31, left: 31),
-                child: TextField(
-                  // obscureText: true, // Pour les mots de passe
-                  style: TextStyle(
-                      //  color: Color.fromARGB(0, 0, 0, 30)
-                      ), // Couleur du texte
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(18.5),
-                      child: Icon(
-                        Icons.person_outline,
-                        color: Colors.black,
-                      ),
-                    ),
-                    labelText: 'Adresse mail',
-                    labelStyle: TextStyle(
-                        color: Color(0xFF6C6C6C),
-                        fontSize: 12), // Couleur du texte du label
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 31), // Ajustez la taille ici
-
-                    //floatingLabelBehavior: FloatingLabelBehavior.always, // Texte au-dessus de la bordure
-                  ),
+                padding: EdgeInsets.symmetric(horizontal: 31),
+                child: buildCustomTextField(
+                  labelText: 'Adresse mail',
+                  hintText: 'Entrez votre adresse mail',
+                  controller: emailController, // Ajout du contrôleur
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 5, bottom: 5.0, right: 31, left: 31),
-                child: TextField(
-                  // obscureText: true, // Pour les mots de passe
-                  style: TextStyle(
-                      //  color: Color.fromARGB(0, 0, 0, 30)
-                      ), // Couleur du texte
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(18.5),
-                      child: Icon(
-                        Icons.lock_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
-                    labelText: 'Mot de passe',
-                    labelStyle: TextStyle(
-                        color: Color(0xFF6C6C6C),
-                        fontSize: 12), // Couleur du texte du label
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 31), // Ajustez la taille ici
-
-                    //floatingLabelBehavior: FloatingLabelBehavior.always, // Texte au-dessus de la bordure
-                  ),
+                padding: EdgeInsets.symmetric(horizontal: 31, vertical: 5),
+                child: buildCustomTextField(
+                  labelText: 'Mot de passe',
+                  hintText: 'Entrez votre mot de passe',
+                  //    iconData: Icons.person,
+                  controller: passwordController, // Ajout du contrôleur
                 ),
               ),
-              // SizedBox(
-              //   height: 37,
-              // ),
               Padding(
                 padding: EdgeInsets.only(right: 30, bottom: 10),
                 child: Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MotPasseOublier()),
+                      )
+                    },
                     child: Text(
                       "Mot de passe oublié ?",
                       style: TextStyle(
@@ -127,13 +86,40 @@ class Connexion extends StatelessWidget {
               ElevatedButton(
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all<Size>(
-                    Size(300,
-                        48), // Définissez la largeur et la hauteur du bouton
+                    Size(300, 48),
                   ),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Color(0xFFFD6847)),
                 ),
-                onPressed: () => {},
+                onPressed: () {
+                  if (areAllFieldsFilled()) {
+                    // Tous les champs sont remplis, vous pouvez connecter l'utilisateur
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Congratulation()),
+                    );
+                    print("Connexion");
+                  } else {
+                    // Affichez une alerte ou un message d'erreur
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Erreur'),
+                          content: Text('Veuillez remplir tous les champs.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
                 child: const Text(
                   "Connexion",
                   style: TextStyle(
@@ -143,119 +129,16 @@ class Connexion extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              const Text("____________________ OU  ____________________"),
-              SizedBox(
-                height: 10,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Container(
-                  constraints: BoxConstraints(maxWidth: 135.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Mettez ici le code à exécuter lorsque le bouton est pressé
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white, // Couleur de fond du bouton
-                      onPrimary: Colors.black, // Couleur du texte du bouton
-                      elevation: 3, // Élévation du bouton
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(8.0), // Bordures arrondies
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/google.png',
-                          width: 9.625,
-                          height: 17.5,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          'Google',
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 12,
-                ),
-                Container(
-                  constraints: BoxConstraints(maxWidth: 135.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Mettez ici le code à exécuter lorsque le bouton est pressé
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white, // Couleur de fond du bouton
-                      onPrimary: Colors.black, // Couleur du texte du bouton
-                      elevation: 3, // Élévation du bouton
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(8.0), // Bordures arrondies
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/facebook.png',
-                          width: 9.625,
-                          height: 17.5,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          'Facebook',
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ]),
-              SizedBox(
-                height: 22,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all<Size>(
-                      Size(300,
-                          48), // Définissez la largeur et la hauteur du bouton
-                    ),
-                    side: MaterialStateProperty.all<BorderSide>(
-                      BorderSide(
-                        color: Colors.black, // Couleur de la bordure
-                        //  width: 2.0, // Épaisseur de la bordure
-                      ),
-                    )
-                    //     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                onPressed: () => {},
-                child: const Text(
-                  "Vous n’avez pas de compte ?",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              SizedBox(height: 12),
-              // Text('data')
+              BuilderEnd(context),
             ],
           ),
         ],
-      )),
+      ),
     );
+  }
+
+  bool areAllFieldsFilled() {
+    return emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty;
   }
 }

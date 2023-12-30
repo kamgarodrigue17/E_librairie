@@ -9,64 +9,62 @@ class Chargement_Password extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: MyAppBar(
-          //     title: "Mon Titre",
-          leadingIconData: Icons.chevron_left,
-          onLeadingPressed: () {
-            // Action à effectuer lorsque l'utilisateur clique sur le bouton de gauche
-            print("Bouton de gauche cliqué !");
-          },
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-              left: 30, right: 30), // Ajustez le padding comme nécessaire
-          child: ListView(
-            children: [
-              Column(children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  children: [
-                    Container(
-                        width: 200,
-                        height: 83,
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          "Changement de mot de passe",
-                          style: TextStyle(fontSize: 24),
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "),
-                buildCustomTextField(
-                    labelText: 'Mot de passe',
-                    hintText: 'Saisissez le mot de passe actuel'),
-                buildCustomTextField(
-                    labelText: 'Nouveau mot de passe',
-                    hintText: 'Saisissez le nouveau mot de passe'),
-                buildCustomTextField(
-                    labelText: 'Confirmation du mot de passe',
-                    hintText: 'Saisissez le nouveau mot de passe'),
-                SizedBox(
-                  height: 30,
-                ),
-                Bouton(
-                  texte: 'Enregistrer',
-                  onPressed: () {
-                    print("Enregistre");
-                    // Logique à exécuter lorsqu'on appuie sur le bouton
-                  },
-                ),
-              ]),
-            ],
-          ),
+    return Scaffold(
+      appBar: MyAppBar(
+        //     title: "Mon Titre",
+        leadingIconData: Icons.chevron_left,
+        onLeadingPressed: () {
+          print("Bouton de gauche cliqué !");
+          Navigator.of(context).pop(); // Cela va revenir en arrière
+        },
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+            left: 30, right: 30), // Ajustez le padding comme nécessaire
+        child: ListView(
+          children: [
+            Column(children: [
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                children: [
+                  Container(
+                      width: 200,
+                      height: 83,
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        "Changement de mot de passe",
+                        style: TextStyle(fontSize: 24),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "),
+              buildCustomTextField(
+                  labelText: 'Mot de passe',
+                  hintText: 'Saisissez le mot de passe actuel'),
+              buildCustomTextField(
+                  labelText: 'Nouveau mot de passe',
+                  hintText: 'Saisissez le nouveau mot de passe'),
+              buildCustomTextField(
+                  labelText: 'Confirmation du mot de passe',
+                  hintText: 'Saisissez le nouveau mot de passe'),
+              SizedBox(
+                height: 30,
+              ),
+              Bouton(
+                texte: 'Enregistrer',
+                onPressed: () {
+                  print("Enregistre");
+                  // Logique à exécuter lorsqu'on appuie sur le bouton
+                },
+              ),
+            ]),
+          ],
         ),
       ),
     );
