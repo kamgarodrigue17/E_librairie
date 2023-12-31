@@ -1,4 +1,6 @@
 import 'package:elibrairy/Controllers/tabController.dart';
+import 'package:elibrairy/screens/Authentification/inscriptionAvecImage.dart';
+import 'package:elibrairy/screens/Home/confirmation.dart';
 import 'package:elibrairy/screens/MyHomePage.dart';
 import 'package:elibrairy/screens/RootPage.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: RootPage(),
+      home: confirmation(),
     );
   }
 }

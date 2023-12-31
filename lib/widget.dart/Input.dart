@@ -57,7 +57,7 @@ Widget buildCustomTextField({
           if (iconData != null) // Vérifie si une icône est spécifiée
             Padding(
               padding: EdgeInsets.only(left: 10, top: 20, bottom: 10),
-              child: Icon(iconData),
+              // child: Icon(iconData),
             ),
           Padding(
             padding: EdgeInsets.only(left: 10, top: 20, bottom: 10),
@@ -73,6 +73,10 @@ Widget buildCustomTextField({
         controller: controller,
         style: TextStyle(), // Couleur du texte
         decoration: InputDecoration(
+          prefixIcon: Icon(
+            iconData,
+            color: Color(0xFF6C6C6C),
+          ),
           labelText: hintText,
           labelStyle: TextStyle(
             color: Color(0xFF6C6C6C),
