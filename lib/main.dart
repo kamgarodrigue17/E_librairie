@@ -1,10 +1,16 @@
 import 'package:elibrairy/Controllers/tabController.dart';
 import 'package:elibrairy/screens/Authentification/inscriptionAvecImage.dart';
+import 'package:elibrairy/screens/Home/Historique_de_lecture.dart';
+import 'package:elibrairy/screens/Home/Notifications.dart';
+import 'package:elibrairy/screens/Home/Voir_Plus.dart';
 import 'package:elibrairy/screens/Home/confirmation.dart';
+import 'package:elibrairy/screens/Home/home.dart';
 import 'package:elibrairy/screens/MyHomePage.dart';
 import 'package:elibrairy/screens/RootPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'screens/Authentification/connexion.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -42,7 +48,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: confirmation(),
+      home: Home(),
     );
   }
 }
