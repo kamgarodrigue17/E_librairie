@@ -1,12 +1,14 @@
 import 'package:elibrairy/Controllers/tabController.dart';
+import 'package:elibrairy/screens/Home/Annonce.dart';
+import 'package:elibrairy/screens/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RootPage extends StatelessWidget {
   RootPage({super.key});
   List<Widget> pages = [
-    Container(),
-    Container(),
+    Home(),
+    Annonce(),
     Container(),
     Container(),
     Container()

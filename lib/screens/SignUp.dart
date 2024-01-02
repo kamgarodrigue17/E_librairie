@@ -1,3 +1,4 @@
+import 'package:elibrairy/screens/RootPage.dart';
 import 'package:elibrairy/widget.dart/Input.dart';
 import 'package:elibrairy/widget.dart/button.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +120,11 @@ class _SignUpState extends State<SignUp> {
                       height: 16,
                     ),
                     Button(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => RootPage(),
+                          ));
+                        },
                         text: "Connexion",
                         textColor: Colors.white,
                         color: Color.fromRGBO(253, 104, 71, 1)),

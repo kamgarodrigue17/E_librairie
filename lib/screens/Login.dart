@@ -1,3 +1,4 @@
+import 'package:elibrairy/screens/RootPage.dart';
 import 'package:elibrairy/widget.dart/Input.dart';
 import 'package:elibrairy/widget.dart/button.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,11 @@ class _LoginState extends State<Login> {
                       height: 16,
                     ),
                     Button(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => RootPage(),
+                          ));
+                        },
                         text: "Connexion",
                         textColor: Colors.white,
                         color: Color.fromRGBO(253, 104, 71, 1)),
@@ -116,7 +121,11 @@ class _LoginState extends State<Login> {
                       height: 16,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RootPage(),
+                        ));
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: 47,
@@ -144,8 +153,6 @@ class _LoginState extends State<Login> {
               child: Image.asset(
                 "assets/Vector 45.png",
                 fit: BoxFit.cover,
-                height: 235,
-                width: width,
               ),
             ),
             Align(
@@ -153,8 +160,6 @@ class _LoginState extends State<Login> {
               child: Image.asset(
                 "assets/Group 19.png",
                 fit: BoxFit.cover,
-                height: 246,
-                width: width,
               ),
             ),
             Align(
@@ -162,8 +167,6 @@ class _LoginState extends State<Login> {
               child: Image.asset(
                 "assets/Vector 47.png",
                 fit: BoxFit.cover,
-                height: 231,
-                width: width,
               ),
             ),
             Align(
