@@ -1,3 +1,4 @@
+import 'package:elibrairy/screens/Authentification/CodeReinitialisation.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/Authentification.dart';
@@ -119,7 +120,7 @@ class InscriptionAvecImage extends StatelessWidget {
                       print('Message du serveur: $message');
 
                       // Vérifier si l'inscription a réussi
-                      if (message == 'Inscription réussie') {
+                      if (message == 'Inscription réussie 🙂️') {
                         // Naviguer vers l'écran de félicitations
                         Navigator.push(
                           context,

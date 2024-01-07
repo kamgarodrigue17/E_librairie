@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:elibrairy/Services/Authentification.dart';
 import 'package:elibrairy/screens/Authentification/connexion.dart';
 import 'package:elibrairy/screens/Home/home.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +8,8 @@ import 'package:flutter/material.dart';
 import '../../widget.dart/Input.dart';
 import '../../widget.dart/button.dart';
 import '../../widget.dart/navabar.dart';
+
+import 'package:image_picker/image_picker.dart';
 
 class Objet_Creation extends StatefulWidget {
   const Objet_Creation({super.key});
@@ -14,7 +19,22 @@ class Objet_Creation extends StatefulWidget {
 }
 
 class _Objet_CreationState extends State<Objet_Creation> {
+  TextEditingController NomController = TextEditingController();
+  TextEditingController DescriptionController = TextEditingController();
   bool showDrawer = false;
+
+  File? _image;
+
+  Future<void> _getImage(ImageSource source) async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(source: source);
+
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +74,7 @@ class _Objet_CreationState extends State<Objet_Creation> {
                     "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "),
                 buildCustomTextField(
                   labelText: 'Nom',
+                  controller: NomController,
                 ),
                 Row(
                   children: [
@@ -75,7 +96,9 @@ class _Objet_CreationState extends State<Objet_Creation> {
                       ),
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Color(0xFF2982C4))),
-                  onPressed: () {},
+                  onPressed: () {
+                    _showImagePickerOptions();
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -96,6 +119,7 @@ class _Objet_CreationState extends State<Objet_Creation> {
                 ),
                 buildCustomTextField_Description(
                   labelText: 'Description',
+                  controller: DescriptionController,
                 ),
                 SizedBox(
                   height: 40,
@@ -114,11 +138,24 @@ class _Objet_CreationState extends State<Objet_Creation> {
 
                     Bouton_Outlined_plus_icone(
                       texte: 'Ajouter',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
+                      onPressed: () async {
+                        //   String name =
+                        String nom = NomController.text;
+                        String description = DescriptionController.text;
+
+                        String message =
+                            await AddArticle(nom, description, _image!);
+
+                        if (message == 'SUCESS') {
+                          // Naviguer vers l'écran de félicitations
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
+                        } else {
+                          // Afficher un message d'erreur (à des fins de débogage)
+                          print('Erreur d\'inscription: $message');
+                        }
                       },
                       Icone_du_bouton: Icons.add,
                       isFilled: true,
@@ -134,6 +171,35 @@ class _Objet_CreationState extends State<Objet_Creation> {
         ],
       ),
       endDrawer: showDrawer ? MyDrawer() : null,
+    );
+  }
+
+  Future<void> _showImagePickerOptions() async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.camera),
+              title: Text('Prendre une photo'),
+              onTap: () {
+                Navigator.pop(context);
+                _getImage(ImageSource.camera);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.image),
+              title: Text('Choisir depuis la galerie'),
+              onTap: () {
+                Navigator.pop(context);
+                _getImage(ImageSource.gallery);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

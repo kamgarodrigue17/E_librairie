@@ -93,7 +93,9 @@ Widget buildCustomTextField({
 }
 
 Widget buildCustomTextField_Description(
-    {String labelText = 'Description', String hintText = ''}) {
+    {String labelText = 'Description',
+    String hintText = '',
+    required controller}) {
   return Column(
     children: [
       Row(

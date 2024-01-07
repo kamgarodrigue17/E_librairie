@@ -59,6 +59,7 @@ class _confirmationState extends State<confirmation> {
                 ),
                 buildCustomTextField_Description(
                   labelText: "Donnez nous une description claire",
+                  controller: null,
                 ),
                 SizedBox(
                   height: 157,

@@ -1,3 +1,7 @@
+import 'package:elibrairy/Services/Authentification.dart';
+import 'package:elibrairy/screens/Authentification/CodeReinitialisation.dart';
+import 'package:elibrairy/screens/Authentification/Congratulation.dart';
+import 'package:elibrairy/screens/Home/confirmation.dart';
 import 'package:flutter/material.dart';
 
 import '../../widget.dart/Input.dart';
@@ -61,13 +65,25 @@ class MotPasseOublier extends StatelessWidget {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Color(0xFFFD6847)),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (areAllFielFilled()) {
+                      String email = emailController.text;
+                      String message = await passwordForget(email);
+
                       // Tous les champs sont remplis, vous pouvez connecter l'utilisateur
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Connexion()),
-                      );
+                      if (message == 'SUCESS') {
+                        // Naviguer vers l'écran de félicitations
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CodeReinitialisation(),
+                          ),
+                        );
+                      } else {
+                        // Afficher un message d'erreur (à des fins de débogage)
+                        print(
+                            'Erreur lors de la verification du password: $message');
+                      }
                       print("Connexion");
                     } else {
                       // Affichez une alerte ou un message d'erreur

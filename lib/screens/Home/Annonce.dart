@@ -56,6 +56,7 @@ class Annonce extends StatelessWidget {
                   ),
                   buildCustomTextField_Description(
                     labelText: 'Description',
+                    controller: null,
                   ),
                   SizedBox(
                     height: 40,

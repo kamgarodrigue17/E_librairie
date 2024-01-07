@@ -1,3 +1,5 @@
+import 'package:elibrairy/Services/Authentification.dart';
+import 'package:elibrairy/screens/Home/home.dart';
 import 'package:flutter/material.dart';
 
 import '../../widget.dart/Input.dart';
@@ -71,8 +73,7 @@ class Connexion extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => MotPasseOublier()),
+                        MaterialPageRoute(builder: (context) => Home()),
                       )
                     },
                     child: Text(
@@ -92,13 +93,25 @@ class Connexion extends StatelessWidget {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Color(0xFFFD6847)),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   if (areAllFieldsFilled()) {
                     // Tous les champs sont remplis, vous pouvez connecter l'utilisateur
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Congratulation()),
-                    );
+
+                    String email = emailController.text;
+                    String password = passwordController.text;
+                    String message = await ConnexionFonction(email, password);
+                    if (message == 'SUCESS') {
+                      // Naviguer vers l'écran de félicitations
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Congratulation()),
+                      );
+                    } else {
+                      // Afficher un message d'erreur (à des fins de débogage)
+                      print('Erreur lors de la connexion: $message');
+                    }
                     print("Connexion");
                   } else {
                     // Affichez une alerte ou un message d'erreur

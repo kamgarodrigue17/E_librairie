@@ -1,7 +1,10 @@
+import 'package:elibrairy/Services/Authentification.dart';
 import 'package:elibrairy/color.dart';
 import 'package:elibrairy/widget.dart/button.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/Authentification/connexion.dart';
+import '../screens/Home/Objet.dart';
 import '../screens/Home/home.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -9,7 +12,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIconData;
   final VoidCallback? onLeadingPressed;
   final VoidCallback? onDrawerIconPressed;
-
   MyAppBar(
       {Key? key,
       this.title,
@@ -112,6 +114,8 @@ class _HomeNavabarState extends State<HomeNavabar> {
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String userName = CurrentUser?.userName ?? "Nom par défaut";
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -139,12 +143,13 @@ class MyDrawer extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            title: const Text(
-              'Hey Georges',
+            title: Text(
+              userName,
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
             ),
             onTap: () {},
           ),
@@ -204,7 +209,12 @@ class MyDrawer extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Objet_Creation()),
+              );
+            },
           ),
           SizedBox(
             height: 12,
@@ -221,7 +231,7 @@ class MyDrawer extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Home()),
+                MaterialPageRoute(builder: (context) => Connexion()),
               );
             },
             Icone_du_bouton: null,

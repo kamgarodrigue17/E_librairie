@@ -1,10 +1,18 @@
+import 'dart:async';
+
+import 'package:elibrairy/Services/Authentification.dart';
+import 'package:elibrairy/color.dart';
+import 'package:elibrairy/model/Token.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../widget.dart/button.dart';
 import 'Congratulation.dart';
 
 class CodeReinitialisation extends StatefulWidget {
-  const CodeReinitialisation({Key? key}) : super(key: key);
+  const CodeReinitialisation({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _CodeReinitialisationState createState() => _CodeReinitialisationState();
@@ -16,6 +24,21 @@ class _CodeReinitialisationState extends State<CodeReinitialisation> {
   TextEditingController textFieldController3 = TextEditingController();
   TextEditingController textFieldController4 = TextEditingController();
   TextEditingController textFieldController5 = TextEditingController();
+  TextEditingController textFieldController6 = TextEditingController();
+
+/* Gestion du temps*/
+
+  int secondsRemaining = 60;
+  late Timer timer;
+  bool isButtonClickable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // int userId = widget.userId;
+    // Start the timer when the page is first displayed
+    startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,23 +82,42 @@ class _CodeReinitialisationState extends State<CodeReinitialisation> {
                   buildTextField(textFieldController3),
                   buildTextField(textFieldController4),
                   buildTextField(textFieldController5),
+                  buildTextField(textFieldController6),
                 ],
               ),
               SizedBox(height: 17),
               Center(
                 child: Bouton(
                   texte: 'Envoyer',
-                  onPressed: () {
+                  onPressed: () async {
                     if (areAllFieldsFilled()) {
                       // Tous les champs sont remplis, vous pouvez envoyer
                       print("Envoyer");
                       print(textFieldController1);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Congratulation()),
-                      );
+                      // L'id peut être laissé à null si le serveur attribue un identifiant
+                      String token = textFieldController1.text +
+                          textFieldController2.text +
+                          textFieldController3.text +
+                          textFieldController4.text +
+                          textFieldController5.text +
+                          textFieldController6.text;
+                      // user_id: widget.userId,
+
+                      String message = await NumberConfirmation(token);
+
+                      if (message == 'SUCESS') {
+                        // Naviguer vers l'écran de félicitations
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Congratulation(),
+                          ),
+                        );
+                      } else {
+                        // Afficher un message d'erreur (à des fins de débogage)
+                        print('Erreur d\'inscription: $message');
+                      }
                     } else {
                       print(textFieldController1.text);
                       // Affichez un message d'erreur ou prenez une autre action
@@ -90,7 +132,7 @@ class _CodeReinitialisationState extends State<CodeReinitialisation> {
                 children: [
                   Text('0:'),
                   Text(
-                    "40",
+                    "$secondsRemaining",
                     style: TextStyle(color: Color(0xFFFD6847)),
                   ),
                 ],
@@ -100,10 +142,16 @@ class _CodeReinitialisationState extends State<CodeReinitialisation> {
                 children: [
                   Text("Vous n’avez pas reçu de message ?  "),
                   TextButton(
-                    onPressed: () => {},
+                    onPressed: isButtonClickable
+                        ? () => ActionButtonPress()
+                        : null, // Enable/disable button based on the flag
                     child: Text(
                       "Renvoyer",
-                      style: TextStyle(color: Color(0xFFFD6847)),
+                      style: TextStyle(
+                        color: isButtonClickable
+                            ? Color(0xFFFD6847)
+                            : Color(0xFF6C6C6C),
+                      ),
                     ),
                   ),
                 ],
@@ -133,8 +181,13 @@ class _CodeReinitialisationState extends State<CodeReinitialisation> {
           decoration: InputDecoration(
             border: InputBorder.none,
           ),
+          inputFormatters: [
+            // FilteringTextInputFormatter.allow(
+            //     RegExp(r'[0-9]')), // Allow only numeric digits
+            LengthLimitingTextInputFormatter(1), // Limit to 1 character
+          ],
           onChanged: (value) {
-            // Vous pouvez ajouter des validations ou des actions supplémentaires ici si nécessaire
+            // You can add additional validations or actions here if needed
           },
         ),
       ),
@@ -146,6 +199,31 @@ class _CodeReinitialisationState extends State<CodeReinitialisation> {
         textFieldController2.text.isNotEmpty &&
         textFieldController3.text.isNotEmpty &&
         textFieldController4.text.isNotEmpty &&
+        textFieldController6.text.isNotEmpty &&
         textFieldController5.text.isNotEmpty;
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        if (secondsRemaining > 0) {
+          secondsRemaining--;
+        } else {
+          // Timer has reached 0, show your message and cancel the timer
+          t.cancel();
+          showEndMessage();
+          isButtonClickable = true;
+        }
+      });
+    });
+  }
+
+  void showEndMessage() {
+    // Display your "Another send" message here
+    print("Another send");
+  }
+
+  void ActionButtonPress() {
+    // Your logic for handling button press goes here
   }
 }

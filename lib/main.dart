@@ -1,4 +1,5 @@
 import 'package:elibrairy/Controllers/tabController.dart';
+import 'package:elibrairy/screens/Authentification/CodeReinitialisation.dart';
 import 'package:elibrairy/screens/Authentification/inscriptionAvecImage.dart';
 import 'package:elibrairy/screens/Home/Historique_de_lecture.dart';
 import 'package:elibrairy/screens/Home/Notifications.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Home(),
+      home: Connexion(),
     );
   }
 }
