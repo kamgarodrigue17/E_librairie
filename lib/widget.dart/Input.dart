@@ -6,11 +6,16 @@ class Input extends StatelessWidget {
   Widget? prefixIcon;
   Widget? suffixIcon;
   bool? obscureText;
+  TextEditingController controller;
+  void Function()? onTap;
+
   void Function(String)? onChanged;
   Input(
       {super.key,
+      required this.controller,
       required this.hintText,
       this.prefixIcon,
+      this.onTap,
       this.suffixIcon,
       required this.onChanged,
       this.obscureText});
@@ -26,8 +31,10 @@ class Input extends StatelessWidget {
           border: Border.all(color: Colors.black.withOpacity(.2)),
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: controller,
         obscureText: this.obscureText!,
         onChanged: (value) {},
+        onTap: onTap,
         decoration: InputDecoration(
             border: InputBorder.none,
             hintText: this.hintText,

@@ -13,11 +13,11 @@ class Profil extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: 296,
+            height: 200,
             color: Colors.white,
             child: Stack(children: [
               Container(
-                height: 221,
+                height: 150,
                 color: Colors.blue,
               ),
               Positioned(

@@ -1,9 +1,14 @@
+import 'package:elibrairy/Services/AnnonceService.dart';
+import 'package:elibrairy/Services/AuthService.dart';
+import 'package:elibrairy/Services/Dio._client.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/Annonce.dart';
 import '../../widget.dart/Galery_image_and_recent.dart';
 import '../../widget.dart/button.dart';
 import '../../widget.dart/list.dart';
 import '../../widget.dart/navabar.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,9 +19,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool showDrawer = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context
+        .read<AnnonceService>()
+        .getUser(context.read<AuthService>().currentUser!.id);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final annonceService = context.watch<AnnonceService>();
+
     return Scaffold(
       appBar: MyAppBar(
         //     title: "Mon Titre",
@@ -27,6 +42,10 @@ class _HomeState extends State<Home> {
           });
         },
         onLeadingPressed: () {
+          context
+              .read<AnnonceService>()
+              .getUser(context.read<AuthService>().currentUser!.id);
+
           // Action à effectuer lorsque l'utilisateur clique sur le bouton de gauche
           print("Bouton de gauche cliqué !");
         },
@@ -91,28 +110,16 @@ class _HomeState extends State<Home> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: [
-                        ImageRecent(
-                          description: 'Les amoureux de la cusine sd',
-                          titre: 'Melen',
-                          imagePath: 'assets/images/recent1.png',
-                        ),
-                        ImageRecent(
-                          description: 'Les amoureux de la cusine sd',
-                          titre: 'Melen',
-                          imagePath: 'assets/images/recent2.png',
-                        ),
-                        ImageRecent(
-                          description: 'Les amoureux de la cusine sd',
-                          titre: 'Melen',
-                          imagePath: 'assets/images/recent3.png',
-                        ),
-                        ImageRecent(
-                          description: 'Les amoureux de la cusine sd',
-                          titre: 'Melen',
-                          imagePath: 'assets/images/recent4.png',
-                        ),
-                      ],
+                      children: List.generate(annonceService.annonces.length,
+                          (index) {
+                        Annonce annonce = annonceService.annonces[index];
+
+                        return ImageRecent(
+                          description: annonce.article.description!,
+                          titre: annonce.article.nom!,
+                          imagePath: baseurl + annonce.article.photo!,
+                        );
+                      }),
                     ),
                   ),
                 ),
@@ -146,44 +153,15 @@ class _HomeState extends State<Home> {
               ),
             ),
             Column(
-              children: [
-                ListeRecent(
-                    description: 'La vie est un roman',
-                    lieu: 'Nouvelle Route Nsimeyong',
-                    date: "04/08/2023",
-                    imagePath: 'assets/images/livre2.png',
-                    heure: '14h'),
-                ListeRecent(
-                    description: 'La vie est un roman',
-                    lieu: 'Nouvelle Route Nsimeyong',
-                    date: "04/08/2023",
-                    imagePath: 'assets/images/livre2.png',
-                    heure: '14h'),
-                ListeRecent(
-                    description: 'La vie est un roman',
-                    lieu: 'Nouvelle Route Nsimeyong',
-                    date: "04/08/2023",
-                    imagePath: 'assets/images/livre2.png',
-                    heure: '14h'),
-                ListeRecent(
-                    description: 'La vie est un roman',
-                    lieu: 'Nouvelle Route Nsimeyong',
-                    date: "04/08/2023",
-                    imagePath: 'assets/images/livre2.png',
-                    heure: '14h'),
-                ListeRecent(
-                    description: 'La vie est un roman',
-                    lieu: 'Nouvelle Route Nsimeyong',
-                    date: "04/08/2023",
-                    imagePath: 'assets/images/livre2.png',
-                    heure: '14h'),
-                ListeRecent(
-                    description: 'La vie est un roman',
-                    lieu: 'Nouvelle Route Nsimeyong',
-                    date: "04/08/2023",
-                    imagePath: 'assets/images/livre2.png',
-                    heure: '14h')
-              ],
+              children: List.generate(annonceService.annonces.length, (index) {
+                Annonce annonce = annonceService.annonces[index];
+                return ListeRecent(
+                    description: "annonce.titre!,",
+                    lieu: annonce.localisation!,
+                    date: annonce.date!,
+                    imagePath: baseurl + "annonce.article.photo!",
+                    heure: '14h');
+              }),
             ),
           ],
         )

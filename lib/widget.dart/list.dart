@@ -22,7 +22,8 @@ class ListeRecent extends StatelessWidget {
     return Column(
       children: [
         Container(
-          //  width: 92,
+          padding: EdgeInsets.all(16),
+          // width: 92,
           height: 109,
           decoration: BoxDecoration(
             color: Color.fromRGBO(0, 0, 0, 0.1),
@@ -37,83 +38,73 @@ class ListeRecent extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 53,
-                  right: 23,
-                ),
+              Expanded(
+                flex: 1,
                 child: Container(
                   width: 67,
                   height: 85,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: Image.asset(
+                    child: Image.network(
                       imagePath,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Container(
-                      width: 180,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            description,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 15),
+              SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                    width: 180,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          description,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 15),
+                        ),
+                        Text(
+                          lieu,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color:
+                                Color.fromRGBO(0, 0, 0, 0.8), // Opacité de 0.7
                           ),
-                          Text(
-                            lieu,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 10,
-                              color: Color.fromRGBO(
-                                  0, 0, 0, 0.8), // Opacité de 0.7
-                            ),
+                        ),
+                        Text(
+                          date,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            color: Color.fromRGBO(0, 0, 0, 0.4),
                           ),
-                          Text(
-                            date,
+                        ),
+                        Text(heure,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 10,
                               color: Color.fromRGBO(0, 0, 0, 0.4),
-                            ),
-                          ),
-                          Text(heure,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10,
-                                color: Color.fromRGBO(0, 0, 0, 0.4),
-                              )),
-                        ],
-                      ))),
-              Spacer(),
-              Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Spacer(),
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Ink(
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFF27A9E1),
-                        shape: CircleBorder(),
-                      ),
-                      child: IconButton(
-                        color: Colors.white,
-                        iconSize: 17,
-                        icon: const Icon(Icons.done),
-                        onPressed: () {},
-                      ),
-                    ),
-                  )
-                ],
+                            )),
+                      ],
+                    )),
+              ),
+              Ink(
+                decoration: const ShapeDecoration(
+                  color: Color(0xFF27A9E1),
+                  shape: CircleBorder(),
+                ),
+                child: IconButton(
+                  color: Colors.white,
+                  iconSize: 17,
+                  icon: const Icon(Icons.done),
+                  onPressed: () {},
+                ),
               ),
             ],
           ),

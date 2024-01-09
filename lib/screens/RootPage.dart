@@ -1,6 +1,8 @@
 import 'package:elibrairy/Controllers/tabController.dart';
 import 'package:elibrairy/screens/Home/Annonce.dart';
+import 'package:elibrairy/screens/Home/Historique_de_lecture.dart';
 import 'package:elibrairy/screens/Home/home.dart';
+import 'package:elibrairy/screens/Profil/profil.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,10 +10,10 @@ class RootPage extends StatelessWidget {
   RootPage({super.key});
   List<Widget> pages = [
     Home(),
+    Container(),
+    HistoriqueLecture(),
+    Profil(),
     Annonce(),
-    Container(),
-    Container(),
-    Container()
   ];
 
   @override
@@ -130,7 +132,7 @@ class RootPage extends StatelessWidget {
                                   ))),
                               GestureDetector(
                                   onTap: () =>
-                                      context.read<TabContrller>().setItem(4),
+                                      context.read<TabContrller>().setItem(3),
                                   child: Expanded(
                                       child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
