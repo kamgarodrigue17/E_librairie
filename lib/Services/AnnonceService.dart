@@ -19,9 +19,12 @@ class AnnonceService extends ChangeNotifier {
 
     Dio.Response response =
         await dio().get("annonces/findbyNotUserId/${userid}");
-    print(response.data);
+    //print(response.data);
     _annonces = decodeAnnonce(response.data);
-    print(annonces.length);
+    annonces.forEach((element) {
+      print(element.article);
+    });
+
     notifyListeners();
     return response.data;
   }

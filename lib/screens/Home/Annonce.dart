@@ -35,7 +35,9 @@ class _AnnonceState extends State<Annonce> {
       // Vous pouvez utiliser pickedFile.path pour accéder au chemin de l'image.
       // Par exemple, vous pouvez l'afficher dans un widget Image.
 
-      photo = pickedFile.path;
+      setState(() {
+        photo = pickedFile.path;
+      });
     } else {
       // L'utilisateur a annulé la sélection de l'image.
     }
@@ -158,15 +160,6 @@ class _AnnonceState extends State<Annonce> {
                         SizedBox(
                           height: 16,
                         ),
-                        Input(
-                            hintText: "description",
-                            controller: nomController,
-                            prefixIcon: Icon(
-                              Icons.lock_outline,
-                              color: Colors.black.withOpacity(.3),
-                            ),
-                            obscureText: false,
-                            onChanged: (value) {}),
                         SizedBox(
                           height: 16,
                         ),
@@ -178,10 +171,13 @@ class _AnnonceState extends State<Annonce> {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2020),
                                       lastDate: DateTime.now())
-                                  .then((value) =>
-                                      dateController.text = value.toString());
+                                  .then((value) {
+                                setState(() {
+                                  dateController.text = value.toString();
+                                });
+                              });
                             },
-                            controller: nomController,
+                            controller: dateController,
                             prefixIcon: Icon(
                               Icons.lock_outline,
                               color: Colors.black.withOpacity(.3),
@@ -209,7 +205,7 @@ class _AnnonceState extends State<Annonce> {
                         }*/
                             },
                             hintText: "Localisation",
-                            controller: nomController,
+                            controller: localisationController,
                             prefixIcon: Icon(
                               Icons.lock_outline,
                               color: Colors.black.withOpacity(.3),

@@ -155,11 +155,12 @@ class _HomeState extends State<Home> {
             Column(
               children: List.generate(annonceService.annonces.length, (index) {
                 Annonce annonce = annonceService.annonces[index];
+                print(annonce.toJson());
                 return ListeRecent(
-                    description: "annonce.titre!,",
+                    description: annonce.titre!,
                     lieu: annonce.localisation!,
                     date: annonce.date!,
-                    imagePath: baseurl + "annonce.article.photo!",
+                    imagePath: baseurl + annonce.article.photo!,
                     heure: '14h');
               }),
             ),
