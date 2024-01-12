@@ -75,7 +75,7 @@ class AnnonceService extends ChangeNotifier {
       "description": data["description"],
       "titre": data["titre"],
       "localisation": data["localisation"],
-      "idUser": data["idUser"],
+      "idUser": data["idUser"].toString(),
       "date": data["date"],
     });
 

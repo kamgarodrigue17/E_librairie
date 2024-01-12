@@ -105,7 +105,7 @@ class ListeRecent extends StatelessWidget {
                   color: Colors.white,
                   iconSize: 17,
                   icon: const Icon(Icons.done),
-                  onPressed: () {},
+                  onPressed: onPressed,
                 ),
               ),
             ],
