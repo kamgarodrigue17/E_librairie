@@ -11,8 +11,39 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AnnonceService extends ChangeNotifier {
   List<Annonce> _annonces = [];
   List<Annonce> get annonces => _annonces;
+  List<Annonce> _annoncesh = [];
+  List<Annonce> get annoncesh => _annonces;
 
-  Future getUser(userid) async {
+  Future retouver(idarticle) async {
+    Dio.Response response = await dio().get("article/retrouve/${idarticle}");
+    notifyListeners();
+    return response.data;
+  }
+
+  Future supretouver(idarticle, iduser) async {
+    Dio.Response response =
+        await dio().get("article/supposeTrouve/${idarticle}/$iduser");
+    notifyListeners();
+    return response.data;
+  }
+
+  Future geth(userid) async {
+    print(userid);
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    Dio.Response response = await dio().get("annonces/findbyUserId/${userid}");
+    //print(response.data);
+    _annoncesh = decodeAnnonce(response.data);
+    annoncesh.forEach((element) {
+      print(element.article);
+    });
+
+    notifyListeners();
+    return response.data;
+  }
+
+  Future get(userid) async {
     print(userid);
 
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -37,16 +68,19 @@ class AnnonceService extends ChangeNotifier {
   Future register(
     data,
   ) async {
+    print(data);
     Dio.FormData user = Dio.FormData.fromMap({
-      "nom": data.nom,
-      "photo": await Dio.MultipartFile.fromFile(data.photo!),
-      "description": data.description,
-      "titre": data.titre,
-      "localisation": data.localisation,
-      "iduser": data.iduser,
+      "nom": data["nom"],
+      "photo": await Dio.MultipartFile.fromFile(data["photo"]),
+      "description": data["description"],
+      "titre": data["titre"],
+      "localisation": data["localisation"],
+      "idUser": data["idUser"],
+      "date": data["date"],
     });
 
-    Dio.Response response = await dio().post("api/user/register", data: user);
+    Dio.Response response =
+        await dio().post("annonces/createWithArticle", data: user);
 
     print(json.decode(response.toString())["Message"]);
 

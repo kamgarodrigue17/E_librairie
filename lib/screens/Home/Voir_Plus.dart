@@ -66,36 +66,42 @@ class _VoirPlusState extends State<VoirPlus> {
             Column(
               children: [
                 ListeRecent(
+                    onPressed: () {},
                     description: 'La vie est un roman',
                     lieu: 'Nouvelle Route Nsimeyong',
                     date: "04/08/2023",
                     imagePath: 'assets/images/livre2.png',
                     heure: '14h'),
                 ListeRecent(
+                    onPressed: () {},
                     description: 'La vie est un roman',
                     lieu: 'Nouvelle Route Nsimeyong',
                     date: "04/08/2023",
                     imagePath: 'assets/images/livre2.png',
                     heure: '14h'),
                 ListeRecent(
+                    onPressed: () {},
                     description: 'La vie est un roman',
                     lieu: 'Nouvelle Route Nsimeyong',
                     date: "04/08/2023",
                     imagePath: 'assets/images/livre2.png',
                     heure: '14h'),
                 ListeRecent(
+                    onPressed: () {},
                     description: 'La vie est un roman',
                     lieu: 'Nouvelle Route Nsimeyong',
                     date: "04/08/2023",
                     imagePath: 'assets/images/livre2.png',
                     heure: '14h'),
                 ListeRecent(
+                    onPressed: () {},
                     description: 'La vie est un roman',
                     lieu: 'Nouvelle Route Nsimeyong',
                     date: "04/08/2023",
                     imagePath: 'assets/images/livre2.png',
                     heure: '14h'),
                 ListeRecent(
+                    onPressed: () {},
                     description: 'La vie est un roman',
                     lieu: 'Nouvelle Route Nsimeyong',
                     date: "04/08/2023",

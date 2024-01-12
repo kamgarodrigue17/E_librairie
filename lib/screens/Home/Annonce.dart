@@ -103,7 +103,7 @@ class _AnnonceState extends State<Annonce> {
                         ),
                         Input(
                             hintText: "description",
-                            controller: nomController,
+                            controller: descController,
                             prefixIcon: Icon(
                               Icons.lock_outline,
                               color: Colors.black.withOpacity(.3),
@@ -157,6 +157,18 @@ class _AnnonceState extends State<Annonce> {
                                 ),
                               ),
                             )),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Input(
+                            hintText: "titre",
+                            controller: titreController,
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                              color: Colors.black.withOpacity(.3),
+                            ),
+                            obscureText: false,
+                            onChanged: (value) {}),
                         SizedBox(
                           height: 16,
                         ),
@@ -233,10 +245,11 @@ class _AnnonceState extends State<Annonce> {
                                 var data = {
                                   "nom": nomController.text,
                                   "photo": photo,
+                                  "date": dateController.text,
                                   "description": descController.text,
                                   "titre": titreController.text,
                                   "localisation": localisationController.text,
-                                  "iduser": context
+                                  "idUser": context
                                       .read<AuthService>()
                                       .currentUser!
                                       .id!,
@@ -269,12 +282,6 @@ class _AnnonceState extends State<Annonce> {
                                     isLoading = false;
                                   });
                                 });
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                );
                               },
                               Icone_du_bouton: Icons.add,
                               isFilled: true,

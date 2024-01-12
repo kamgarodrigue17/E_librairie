@@ -6,11 +6,13 @@ class ListeRecent extends StatelessWidget {
   final String lieu;
   final String heure;
   final String imagePath;
+  void Function()? onPressed;
 
   ListeRecent(
       {
       // required this.width,
       // required this.height,
+      required this.onPressed,
       required this.description,
       required this.date,
       required this.lieu,
@@ -96,7 +98,7 @@ class ListeRecent extends StatelessWidget {
               ),
               Ink(
                 decoration: const ShapeDecoration(
-                  color: Color(0xFF27A9E1),
+                  color: Color.fromARGB(255, 236, 233, 23),
                   shape: CircleBorder(),
                 ),
                 child: IconButton(
