@@ -78,7 +78,7 @@ class AnnonceService extends ChangeNotifier {
       "idUser": data["idUser"].toString(),
       "date": data["date"],
     });
-
+    print(user.files);
     Dio.Response response =
         await dio().post("annonces/createWithArticle", data: user);
 

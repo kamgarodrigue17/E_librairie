@@ -1,6 +1,7 @@
 import 'package:elibrairy/Services/AnnonceService.dart';
 import 'package:elibrairy/Services/AuthService.dart';
 import 'package:elibrairy/Services/Dio._client.dart';
+import 'package:elibrairy/screens/Home/detail_livre.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/Annonce.dart';
@@ -167,47 +168,52 @@ class _HomeState extends State<Home> {
                       List.generate(annonceService.annonces.length, (index) {
                     Annonce annonce = annonceService.annonces[index];
                     print(annonce.toJson());
-                    return ListeRecent(
-                        onPressed: () {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          context
-                              .read<AnnonceService>()
-                              .supretouver(annonce.article.id,
-                                  context.read<AuthService>().currentUser!.id)
-                              .then((value) {
+                    return GestureDetector(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => detail_livre(annonce: annonce),
+                      )),
+                      child: ListeRecent(
+                          onPressed: () {
                             setState(() {
-                              isLoading = false;
+                              isLoading = true;
                             });
-                            FToast.toast(
-                              context,
-                              msg: "article retrouver",
-                              subMsg: "",
-                              corner: 20.0,
-                              duration: 2000,
-                              color: Colors.green,
-                              padding: const EdgeInsets.all(20),
-                            );
-                          }).catchError((onError) {
-                            FToast.toast(
-                              context,
-                              msg: "${onError}",
-                              subMsg: "",
-                              corner: 20.0,
-                              duration: 2000,
-                              padding: const EdgeInsets.all(20),
-                            );
-                            setState(() {
-                              isLoading = false;
+                            context
+                                .read<AnnonceService>()
+                                .supretouver(annonce.article.id,
+                                    context.read<AuthService>().currentUser!.id)
+                                .then((value) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              FToast.toast(
+                                context,
+                                msg: "article retrouver",
+                                subMsg: "",
+                                corner: 20.0,
+                                duration: 2000,
+                                color: Colors.green,
+                                padding: const EdgeInsets.all(20),
+                              );
+                            }).catchError((onError) {
+                              FToast.toast(
+                                context,
+                                msg: "${onError}",
+                                subMsg: "",
+                                corner: 20.0,
+                                duration: 2000,
+                                padding: const EdgeInsets.all(20),
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
                             });
-                          });
-                        },
-                        description: annonce.titre!,
-                        lieu: annonce.localisation!,
-                        date: annonce.date!,
-                        imagePath: baseurl + annonce.article.photo!,
-                        heure: '14h');
+                          },
+                          description: annonce.titre!,
+                          lieu: annonce.localisation!,
+                          date: annonce.date!,
+                          imagePath: baseurl + annonce.article.photo!,
+                          heure: '14h'),
+                    );
                   }),
                 ),
               ],
