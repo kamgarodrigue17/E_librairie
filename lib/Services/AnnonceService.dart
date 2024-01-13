@@ -12,7 +12,7 @@ class AnnonceService extends ChangeNotifier {
   List<Annonce> _annonces = [];
   List<Annonce> get annonces => _annonces;
   List<Annonce> _annoncesh = [];
-  List<Annonce> get annoncesh => _annonces;
+  List<Annonce> get annoncesh => _annoncesh;
 
   Future retouver(idarticle) async {
     Dio.Response response = await dio().get("article/retrouve/${idarticle}");

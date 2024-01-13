@@ -275,7 +275,7 @@ class _AnnonceState extends State<Annonce> {
                                     msg: "${onError}",
                                     subMsg: "",
                                     corner: 20.0,
-                                    duration: 2000,
+                                    duration: 7000,
                                     padding: const EdgeInsets.all(20),
                                   );
                                   setState(() {
